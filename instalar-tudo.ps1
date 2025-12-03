@@ -38,6 +38,6 @@ Write-Host "   - Faça login com:" -ForegroundColor White
 Write-Host "     Usuário: root" -ForegroundColor White
 Write-Host "     Senha: Admin12345" -ForegroundColor White
 Write-Host "   - Crie um novo projeto chamado 'devops-project'" -ForegroundColor White
-Write-Host "   - Execute: .\configurar-git.ps1" -ForegroundColor White
 Write-Host "   - Configure o GitLab Runner (veja README.md)" -ForegroundColor White
-Write-Host "   - Faça push para trigger do pipeline" -ForegroundColor White
+Write-Host "   - Configure o Git e faça push (veja README.md)" -ForegroundColor White
+Write-Host "   - O pipeline será executado automaticamente após o push" -ForegroundColor White

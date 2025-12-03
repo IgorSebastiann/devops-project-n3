@@ -42,9 +42,9 @@ Reprodução de um fluxo DevOps completo utilizando ferramentas open source para
 ```
 devops-project/
 ├── docker-compose.yml          # Orquestração de containers (GitLab, Registry, Runner)
+├── commit.ps1                  # Script único para commit e push
 ├── apresentacao.ps1            # Script de demonstração
 ├── instalar-tudo.ps1           # Script de instalação
-├── configurar-git.ps1          # Configuração do Git
 ├── app/                        # Código da aplicação
 │   ├── src/
 │   │   ├── app.js              # API REST em Node.js
@@ -124,14 +124,28 @@ docker exec -it gitlab-runner gitlab-runner register \
 
 #### 5. Configurar Git e fazer push
 ```powershell
-.\configurar-git.ps1
+# Configure o Git manualmente ou use o script commit.ps1
+git config --global user.name "root"
+git config --global user.email "root@localhost.com"
+git config --global http.sslVerify false
+
+# Inicialize o repositório e faça push
+cd app
+git init
+git add .
+git commit -m "Initial commit"
+cd ..
+
+git add .
+git commit -m "Initial commit"
+git remote add origin http://localhost:8929/root/devops-project.git
+git branch -M main
+git push -u origin main
 ```
 
-Este script irá:
-- Inicializar o repositório Git
-- Fazer commit do código
-- Configurar o remote para o GitLab
-- Fazer push (use `root` / `Admin12345` quando solicitado)
+**Credenciais quando solicitado:**
+- **Usuário:** `root`
+- **Senha:** `Admin12345`
 
 #### 6. Verificar o pipeline
 Após o push, o pipeline será executado automaticamente:
@@ -147,7 +161,7 @@ Após o push, o pipeline será executado automaticamente:
 
 ## ⚙️ Scripts Automatizados
 - **instalar-tudo.ps1** — Verifica pré-requisitos e inicia containers  
-- **configurar-git.ps1** — Configura repositório Git e faz push automático  
+- **commit.ps1** — Script único para fazer commit e push (GitHub ou GitLab)  
 - **apresentacao.ps1** — Demonstra o ambiente e verifica status do pipeline  
 
 ---
