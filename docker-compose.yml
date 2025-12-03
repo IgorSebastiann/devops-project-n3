@@ -1,0 +1,50 @@
+services:
+  # GitLab - Servidor Git e CI/CD
+  gitlab:
+    image: gitlab/gitlab-ce:16.11.0-ce.0
+    container_name: gitlab
+    environment:
+      - GITLAB_OMNIBUS_CONFIG=external_url 'http://localhost:8929'; gitlab_rails['gitlab_shell_ssh_port'] = 2224; nginx['redirect_http_to_https'] = false; registry['enable'] = false; gitlab_rails['initial_root_password'] = 'Admin12345'
+    volumes:
+      - ./gitlab/config:/etc/gitlab
+      - ./gitlab/logs:/var/log/gitlab
+      - ./gitlab/data:/var/opt/gitlab
+    ports:
+      - "8929:8929"
+      - "2224:22"
+    restart: unless-stopped
+    shm_size: '256m'
+    networks:
+      - devops-network
+
+  # GitLab Runner - Executor de pipelines CI/CD
+  gitlab-runner:
+    image: gitlab/gitlab-runner:v16.11.0
+    container_name: gitlab-runner
+    volumes:
+      - ./gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    depends_on:
+      - gitlab
+      - registry
+    networks:
+      - devops-network
+
+  # Docker Registry
+  registry:
+    image: registry:2
+    container_name: registry
+    ports:
+      - "5000:5000"
+    environment:
+      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data
+    volumes:
+      - ./registry:/data
+    restart: unless-stopped
+    networks:
+      - devops-network
+
+networks:
+  devops-network:
+    driver: bridge
