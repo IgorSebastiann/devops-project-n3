@@ -1,8 +1,4 @@
-# Script único para fazer commit e push
-# Execute com: powershell -ExecutionPolicy Bypass -File .\commit.ps1
-# Ou: .\commit.ps1 (se a política permitir)
-
-Write-Host "=== COMMIT E PUSH PARA GITHUB ===" -ForegroundColor Cyan
+Write-Host "=== COMMIT E PUSH ===" -ForegroundColor Cyan
 Write-Host ""
 
 $projectRoot = "C:\Users\$env:USERNAME\Desktop\devops-project"
@@ -54,10 +50,10 @@ if ($mainStatus) {
     Write-Host "   ℹ️  Nenhuma mudança para commitar" -ForegroundColor Gray
 }
 
-# 3. Push para GitHub
+# 3. Push
 if ($hasChanges) {
     Write-Host ""
-    Write-Host "3. Fazendo push para GitHub..." -ForegroundColor Yellow
+    Write-Host "3. Fazendo push..." -ForegroundColor Yellow
     $pushResult = git push 2>&1
     if ($LASTEXITCODE -eq 0) {
         Write-Host "   ✅ Push realizado com sucesso!" -ForegroundColor Green
