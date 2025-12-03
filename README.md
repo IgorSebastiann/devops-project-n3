@@ -3,9 +3,9 @@
 ## 📋 Descrição do Projeto
 Reprodução de um fluxo DevOps completo utilizando ferramentas open source para versionamento de código, automação de build, publicação e execução de imagens Docker. Este projeto é uma continuidade da N2, migrando de Gitea para GitLab e implementando testes unitários durante o build da imagem Docker.
 
-**Equipe:** [Nomes dos integrantes]  
-**Disciplina:** [Nome da disciplina]  
-**Professor:** [Nome do professor]
+**Equipe:** Igor Sebastian Mathias  
+**Disciplina:** GERENCIAMENTO, CONFIGURAÇÃO E PROCESSOS DE SOFTWARE
+**Professor:** EMANUEL FERREIRA DA SILVA
 
 ---
 
